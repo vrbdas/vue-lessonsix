@@ -1,7 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-
-import NewsCard from './components/NewsCard.vue';
+import { ref, provide } from 'vue';
+import AppNews from './components/AppNews.vue';
 
 const currentDate = ref(new Date());
 const options = {
@@ -49,6 +48,8 @@ const vueNews = ref([
 const openedCount = ref(0);
 const readCount = ref(0);
 
+provide('vueNews', vueNews);
+
 function openCard(id) {
   const idx = vueNews.value.findIndex((value) => value.id === id);
   vueNews.value[idx].isOpen = true;
@@ -81,7 +82,7 @@ function markUnread(id) {
         <h2 class="news__title">Actual News on {{ currentDate.toLocaleDateString('en-UK', options) }}</h2>
         <p>Opened: <strong>{{ openedCount }}</strong> | Read: <strong>{{ readCount }}</strong></p>
         <div class="news__cards">
-          <NewsCard v-for="card in vueNews" :key="card.id" :card="card" :openCard="openCard" :closeCard="closeCard" :markRead="markRead" :markUnread="markUnread"/>
+          <app-news v-for="card in vueNews" :key="card.id" :card="card" :openCard="openCard" :closeCard="closeCard" :markRead="markRead" :markUnread="markUnread"></app-news>
         </div>
       </section>
     </div>

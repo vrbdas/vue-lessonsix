@@ -1,5 +1,7 @@
 <script setup>
 import { ref, defineProps } from 'vue';
+import AppButton from './AppButton.vue';
+import AppNewsList from './AppNewsList.vue';
 const props = defineProps(['card', 'openCard', 'closeCard', 'markRead', 'markUnread']);
 </script>
 
@@ -7,19 +9,20 @@ const props = defineProps(['card', 'openCard', 'closeCard', 'markRead', 'markUnr
   <div class="card">
     <h3 class="card__title" :class="card.isRead ? 'card__title_read' : ''">
       {{ card.title }}
-      <span 
-        :class="!card.isOpen  ? 'icon-circle-down' : 'icon-circle-down icon-circle-down_rotate'"
-        @click="!card.isOpen ? openCard(card.id) : closeCard(card.id)">
-      </span>
+      <app-button 
+        :btnClass="!card.isOpen  ? 'icon-circle-down' : 'icon-circle-down icon-circle-down_rotate'" 
+        @btnAction="!card.isOpen ? openCard(card.id) : closeCard(card.id)"
+      ></app-button>
     </h3>
     <transition name="fade">
       <div class="card__content" v-show="card.isOpen">
         <p>{{ card.content }}</p>
-        <button 
-          :class="!card.isRead ? 'card__content-btn' : 'card__content-btn card__content-btn_read'"
-          @click="!card.isRead ? markRead(card.id) : markUnread(card.id)">
-          {{!card.isRead ? 'mark as read' : 'mark as unread'}}
-        </button>
+        <app-button 
+          :btnClass="!card.isRead ? 'card__content-btn' : 'card__content-btn card__content-btn_read'"
+          :btnText="!card.isRead ? 'mark as read' : 'mark as unread'"
+          @btnAction="!card.isRead ? markRead(card.id) : markUnread(card.id)"
+        ></app-button>
+        <app-news-list></app-news-list>
       </div>
     </transition>
   </div>
@@ -88,6 +91,8 @@ $fifth: #2EC4B6;
   font-size: 1.5rem;
   cursor: pointer;
   transition: 0.5s all;
+  border: none;
+  background-color: transparent;
 
   &_rotate {
     transform: translateX(50%) translateY(50%) rotate(-90deg);
