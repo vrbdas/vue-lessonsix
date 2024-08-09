@@ -22,7 +22,7 @@ const props = defineProps(['card', 'openCard', 'closeCard', 'markRead', 'markUnr
           :btnText="!card.isRead ? 'mark as read' : 'mark as unread'"
           @btnAction="!card.isRead ? markRead(card.id) : markUnread(card.id)"
         ></app-button>
-        <app-news-list></app-news-list>
+        <app-news-list>Read more:</app-news-list>
       </div>
     </transition>
   </div>

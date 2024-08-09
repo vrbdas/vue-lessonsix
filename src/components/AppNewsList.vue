@@ -6,7 +6,7 @@ const vueNews = inject('vueNews');
 <template>
   <div class="news-list">
     <hr>
-    <h4 class="news-list__title">List of all news</h4>
+    <h4 class="news-list__title"><slot></slot></h4>
     <ul>
       <li v-for="item in vueNews" :key="item.id"
         :class="item.isRead === true ? 'news-list__li news-list__li_read' : 'news-list__li'">
